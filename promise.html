@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>  
+    <script src="bluebird.min.js"></script>
+    <title>demo</title>  
+  
+    <style>  
+        * {  
+            margin: 0;   
+            padding: 0;  
+        }  
+        body, html {  
+            width: 100%;  
+            height: 100%;  
+        }   
+    </style>  
+</head>  
+<body>  
+ 
+<script>  
+        // 定义函数
+      /*  function runAsync(){
+            alert(1);
+            // 直接返回 Promise 实例
+            return new Promise(function(resolve, reject){
+                alert(2);
+                //做一些异步操作
+                setTimeout(function() {
+                   alert(3);
+                   resolve('一些数据');
+                }, 100);
+            });
+        }
+
+        runAsync()
+        .then(function(data) {// 第 1 次调用的 resolve 回调
+            alert(data);
+        })*/
+		
+		
+var doSomething = function () {
+    return new Promise(function(resolve,reject){
+        alert("doSomething");
+        setTimeout(function(){
+            resolve(1)
+        },5000);
+    })
+}
+
+var doSomethingElse = function () {
+    return new Promise(function(resolve,reject){
+        alert("doSomethingElse");
+        setTimeout(function(){
+            resolve(1)
+        },5000);
+    });
+}
+
+var finalHandler = function(){
+    return new Promise(function(resolve,reject){
+        alert("finalHandler");
+         setTimeout(function(){
+            resolve(1)
+        },5000);
+    });
+}
+
+var somePromise = function(){
+	return new Promise(function(resolve,reject){
+		//reject("this is an error")
+		resolve("a")
+	})
+}
+
+var someOtherPromise = function(){
+	return new Promise(function(resolve,reject){
+		//reject("this is another an error")
+		
+		resolve("a")
+	})
+}
+
+/* 1
+doSomething().then(function () {
+  return doSomethingElse();
+}).then(finalHandler);*/
+
+/*doSomething().then(function () {
+  doSomethingElse();
+}).then(finalHandler);*/
+
+/*somePromise().catch(function(err){
+	alert(err);
+})*/
+
+//somePromise().then(null,function(err){alert(err)})
+
+/*somePromise().then(function(){
+	//return someOtherPromise();
+	throw new Error("new error");
+}).catch(function(err){
+	alert(err);
+})*/
+
+/*somePromise().then(function(){
+	//return someOtherPromise();
+	throw new Error("new error");
+},function(err){
+	alert(err);
+}).catch(function(err){
+	alert(err);
+})*/
+
+
+
+/*somePromise().then(function(val){
+	alert(val);
+	setTimeout(function(){alert(1);},4000);
+	//return "abc";
+}).then(function(val){
+	setTimeout(function(){alert(2);},3000);
+	//return "def";
+}).then(function(val){
+	setTimeout(function(){alert(3);},2000);
+}).catch(function(err){
+	alert(err);
+})*/
+
+somePromise().then(function(val){
+	return new Promise(function(resolve,reject){
+		alert(1)
+		setTimeout(function(){
+			//alert(val);
+			resolve("abc");
+		},3000);
+	})
+}).then(function(val){
+	return new Promise(function(resolve,reject){
+		alert(2)
+		setTimeout(function(){
+			//alert(val);
+			resolve("def");
+		},3000);
+	})
+}).then(function(val){
+	alert(val);
+}).catch(function(err){
+	alert(err);
+})
+
+
+        
+</script>  
+</body>  
+</html>
